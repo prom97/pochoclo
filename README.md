@@ -49,10 +49,6 @@ php artisan migrate
 ```
 <br/>
 
-- You must register at https://console.cloud.google.com and create a project, configurate OAuth Consent Screen and make the credential to copy on your .env file (line 60 for reference)
-
-<br/>
-
 - Serve it
 ```
 php artisan serve
