@@ -7,9 +7,7 @@
 </div>
 
 ## Introduction
-- In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using Laravel Socialite. Socialite currently supports authentication via Facebook, Twitter, LinkedIn, Google, GitHub, GitLab, and Bitbucket.
-
-- The idea of ​​the project is to be able to enter through a Google account, only if the user is registered in the system.
+- Netflix clone using Laravel 11 and ReactJS.
 
 <br/>
 
@@ -24,7 +22,7 @@
 ## Deployment
 - Clone project
 ```
-git clone https://github.com/PabloDamianRomero/laravel-socialite-test.git
+git clone https://github.com/prom97/pochoclo.git
 ```
 - Install dependencies from composer.json and package.json (inside the project directory)
 ```
