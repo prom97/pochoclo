@@ -8,7 +8,7 @@
 ## Tech Stack
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=laravel,tailwind,mysql,vscode" />
+    <img src="https://skillicons.dev/icons?i=laravel,react,tailwind,mysql,vscode" />
   </a>
 </p>
 
