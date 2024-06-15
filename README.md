@@ -12,12 +12,9 @@
   </a>
 </p>
 
-<br/>
-
 ## Resources
 - <a href="https://github.com/overtrue/laravel-favorite">❤️ User favorite feature for Laravel Application. </a>
 
-<br/>
 
 ## Deployment
 - Clone project
@@ -34,9 +31,9 @@ npm install
 ```
 npm run dev
 ```
-- Create a new database and config your .env file (line 11 for reference)
-  - Default Database name: socialite
-  - If the .env file does not exist:
+- Create a new database and config your .env file (line 22 for reference)
+
+- ⚠️If the .env file does not exist:
  
  ```
  cp .env.example .env
