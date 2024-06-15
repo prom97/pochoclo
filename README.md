@@ -12,6 +12,12 @@
   </a>
 </p>
 
+<br/>
+
+## Resources
+- <a href="https://github.com/overtrue/laravel-favorite">❤️ User favorite feature for Laravel Application. </a>
+
+<br/>
 
 ## Deployment
 - Clone project
