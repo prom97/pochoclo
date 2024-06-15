@@ -1,13 +1,7 @@
-<div style="display:flex; margin:auto;">
-<div style="width:50%;">
-<a href="https://laravel.com" target="_blank"><img src="https://www.vectorlogo.zone/logos/laravel/laravel-ar21.svg" width="300" alt="Laravel 11"></a>
-</div>
-<div style="width:50%;">
-<a href="https://es.react.dev/" target="_blank"><img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" width="300" alt="ReactJS"></a></div>
-</div>
+<p align="center"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo"><img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" width="250" alt="ReactJS"></p>
 
 ## Introduction
-- Netflix clone using Laravel 11 and ReactJS.
+- Netflix clone using Laravel 11 and ReactJS. (:warning: **In Progress**)
 
 <br/>
 
