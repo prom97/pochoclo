@@ -2,13 +2,20 @@
 
 namespace App\Models;
 
+/**
+ * resources Filament
+ * https://filamentphp.com/docs/3.x/panels/installation#allowing-users-to-access-a-panel
+ */
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Overtrue\LaravelFavorite\Traits\Favoriter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Overtrue\LaravelFavorite\Traits\Favoriter;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable, Favoriter;
 
@@ -44,5 +51,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@pochoclo.test') && $this->hasVerifiedEmail();
     }
 }

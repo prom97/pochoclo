@@ -9,4 +9,6 @@ use Overtrue\LaravelFavorite\Traits\Favoriteable;
 class Movie extends Model
 {
     use HasFactory, Favoriteable;
+    protected $guarded = [] ;
+
 }

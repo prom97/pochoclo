@@ -2,28 +2,35 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MovieResource\Pages;
-use App\Filament\Resources\MovieResource\RelationManagers;
-use App\Models\Movie;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Movie;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\MovieResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\MovieResource\RelationManagers;
 
 class MovieResource extends Resource
 {
     protected static ?string $model = Movie::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-video-camera';
+    protected static ?string $navigationGroup = 'Movies';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                TextInput::make('title')->live()->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+
+                TextInput::make('slug')
             ]);
     }
 

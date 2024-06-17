@@ -2,28 +2,35 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GenreResource\Pages;
-use App\Filament\Resources\GenreResource\RelationManagers;
-use App\Models\Genre;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Genre;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\GenreResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\GenreResource\RelationManagers;
 
 class GenreResource extends Resource
 {
     protected static ?string $model = Genre::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Groups';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')->live()->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+
+                TextInput::make('slug')
             ]);
     }
 
@@ -31,8 +38,9 @@ class GenreResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
+                Tables\Columns\TextColumn::make('name'),           
+                Tables\Columns\TextColumn::make('slug'),           
+                ])
             ->filters([
                 //
             ])
