@@ -4,7 +4,7 @@
 </p>
 
 ## Introduction
-- Netflix clone using Laravel f11 and ReactJS. (⚠️ **In Progress**)
+- Netflix clone using Laravel 11 and ReactJS. (⚠️ **In Progress**)
 
 <br/>
 

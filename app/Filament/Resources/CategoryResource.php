@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use RelationManagers\MoviesRelationManager;
 
 class CategoryResource extends Resource
 {
@@ -28,9 +29,16 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->live()->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
-
-                TextInput::make('slug')
+                Forms\Components\Section::make('Details')
+                ->columns(4)
+                ->schema([
+                TextInput::make('name')
+                ->live()
+                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                ->required()
+                ->columnSpan(2),
+                TextInput::make('slug')->required()->columnSpan(2)
+                ])
             ]);
     }
 
@@ -56,7 +64,8 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // MoviesRelationManager::class,
+            // RelationManagers\SeriesRelationManager::class
         ];
     }
 
