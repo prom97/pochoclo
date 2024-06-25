@@ -2,19 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Genre;
-use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\GenreResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\GenreResource\RelationManagers;
+use App\Models\Genre;
+use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class GenreResource extends Resource
 {
@@ -29,13 +29,15 @@ class GenreResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Details')
-                ->columns(4)
-                ->schema([
-                    TextInput::make('name')->live()->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                    ->required()
-                    ->columnSpan(2),
-                    TextInput::make('slug')->required()->columnSpan(2)
-                ])
+                    ->columns(4)
+                    ->schema([
+                TextInput::make('name')
+                    ->live()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                        ->required()
+                        ->columnSpan(2),
+                TextInput::make('slug')->required()->columnSpan(2)
+            ])
             ]);
     }
 
@@ -43,9 +45,9 @@ class GenreResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),           
-                Tables\Columns\TextColumn::make('slug'),           
-                ])
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('slug'),
+            ])
             ->filters([
                 //
             ])
@@ -62,8 +64,8 @@ class GenreResource extends Resource
     public static function getRelations(): array
     {
         return [
-            // RelationManagers\MoviesRelationManager::class,
-            // RelationManagers\SeriesRelationManager::class
+            RelationManagers\MoviesRelationManager::class,
+            RelationManagers\SeriesRelationManager::class
         ];
     }
 

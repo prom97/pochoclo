@@ -2,20 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
-use App\Models\Category;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategoryResource\RelationManagers;
-use RelationManagers\MoviesRelationManager;
+use App\Filament\Resources\CategoryResource\RelationManagers\MoviesRelationManager;
+use App\Filament\Resources\CategoryResource\RelationManagers\SeriesRelationManager;
+use App\Models\Category;
+use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -25,20 +26,21 @@ class CategoryResource extends Resource
     protected static ?string $navigationGroup = 'Groups';
     protected static ?int $navigationSort = 2;
 
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make('Details')
-                ->columns(4)
-                ->schema([
-                TextInput::make('name')
-                ->live()
-                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                ->required()
-                ->columnSpan(2),
-                TextInput::make('slug')->required()->columnSpan(2)
-                ])
+                    ->columns(4)
+                    ->schema([
+                        TextInput::make('name')
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->required()
+                            ->columnSpan(2),
+                        TextInput::make('slug')->required()->columnSpan(2)
+                    ])
             ]);
     }
 
@@ -46,7 +48,8 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('slug'),
             ])
             ->filters([
                 //
@@ -64,8 +67,8 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            // MoviesRelationManager::class,
-            // RelationManagers\SeriesRelationManager::class
+            MoviesRelationManager::class,
+            SeriesRelationManager::class,
         ];
     }
 

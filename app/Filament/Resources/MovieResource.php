@@ -2,20 +2,23 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\MovieResource\Pages;
+use App\Filament\Resources\MovieResource\RelationManagers;
+use App\Models\Movie;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
-use Filament\Tables;
-use App\Models\Movie;
-use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\MovieResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\MovieResource\RelationManagers;
+use Illuminate\Support\Str;
 
 class MovieResource extends Resource
 {
@@ -30,29 +33,29 @@ class MovieResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Details')
-                ->columns(4)
-                ->schema([
-                    Select::make('genres')
+                    ->columns(4)
+            ->schema([
+                Select::make('genres')
                     ->multiple()
                     ->relationship(titleAttribute: 'name')
-                    ->preload()
-                    ->columnSpan(2),
-                    DatePicker::make('release_date')->columnSpan(2),
-                TextInput::make('title')
-                ->live()
-                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                ->required()
+                ->preload()
                 ->columnSpan(2),
+                DatePicker::make('release_date')->columnSpan(2),
+                TextInput::make('title')
+                    ->live()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->required()
+                    ->columnSpan(2),
                 TextInput::make('slug')->columnSpan(2),
                 Textarea::make('overview')->columnSpanFull(),
-                ]),
+            ]),
                 Forms\Components\Section::make('Urls')
-                ->columns(4)
+                    ->columns(4)
                 ->schema([
                     TextInput::make('poster_path')->url(),
                     TextInput::make('backdrop_path')->url(),
-                    TextInput::make('video_path')->url(),
-                    TextInput::make('trailer_path')->url(),
+                    TextInput::make('video_url')->url(),
+                    TextInput::make('trailer_url')->url(),
                 ])
             ]);
     }
@@ -68,22 +71,21 @@ class MovieResource extends Resource
             ])
             ->filters([
                 Filter::make('created_at')
-                ->form([
-                    DatePicker::make('created_from'),
-                    DatePicker::make('created_until'),
-                ])
-                ->query(function (Builder $query, array $data):Builder {
-                    return $query
-                    ->when(
-                        $data['created_from'],
-                        fn (Builder $query, $date): Builder => $query->whereDate('created_at','>=',
-                        $date),
-                    )
-                    ->when($data['created_until'],
-                    fn (Builder $query, $date): Builder => $query->whereDate('created_at','<=',
-                    $date),
-                    );
-                })
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
